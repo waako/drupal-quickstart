@@ -38,7 +38,7 @@ then
   echo "Download and install the latest stable version of Drupal"
   echo
 
-  if ! $DRUSH_SCRIPT dl drupal --destination=${OPENSHIFT_DATA_DIR}downloads --yes
+  if ! $DRUSH_SCRIPT dl drupal --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
   then
     echo "ERROR: Unable download and install Drupal."
     exit 7
