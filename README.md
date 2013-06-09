@@ -1,10 +1,11 @@
-Drupal on OpenShift
+Drupal 8 beta on OpenShift
 ===================
 
 This Git repository helps you get up and running quickly w/ a Drupal
-installation on OpenShift. It defaults to using MySQL, so when creating
-the application you'll want to select and install both MySQL and Cron
-(for running scheduled tasks). 
+8 beta installation on OpenShift. We do NOT recommend using this in production 
+just yet, but hope you will use it to test & give feedback to the Drupal Community.
+It defaults to using MySQL, so when creating the application you'll want to select 
+and install both MySQL and Cron (for running scheduled tasks). 
 
     rhc app create drupal php-5 mysql cron
 
