@@ -23,7 +23,7 @@ echo
 #
 # Drupal 8.x requires using Drush 6 
 #
-
+git clone --branch 8.x-6.x http://git.drupal.org/project/drush.git
 #
 # If there is no current download of Drupal, create one.
 #
