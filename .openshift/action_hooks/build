@@ -21,6 +21,10 @@ DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 echo
 
 #
+# Drupal 8.x requires using Drush 6 
+#
+
+#
 # If there is no current download of Drupal, create one.
 #
 if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
