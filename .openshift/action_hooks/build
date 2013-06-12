@@ -22,8 +22,13 @@ echo
 
 #
 # Drupal 8.x requires using Drush 6 
+# Get the latest version from drupal.org as a tarball.
 #
-git clone --branch 8.x-6.x http://git.drupal.org/project/drush.git
+
+cd ${OPENSHIFT_HOMEDIR}
+wget http://ftp.drupal.org/files/projects/drush-8.x-6.x-dev.tar.gz
+tar xzvf drush-8.x-6.x-dev.tar.gz
+
 #
 # If there is no current download of Drupal, create one.
 #
