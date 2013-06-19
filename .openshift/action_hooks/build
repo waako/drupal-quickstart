@@ -48,7 +48,7 @@ then
   echo
 
   #if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
-  if ! git clone --depth 1 --branch 8.x http://git.drupal.org/project/drupal.git
+  if ! git clone --depth 1 --branch 8.x http://git.drupal.org/project/drupal.git ${OPENSHIFT_DATA_DIR}/downloads/drupal
   then
     echo "ERROR: Unable download and install Drupal."
     exit 7
