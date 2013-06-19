@@ -67,7 +67,7 @@ then
   #
   # Ensure there is a default health check
   #
-  cp ${OPENSHIFT_REPO_DIR}.openshift/health_check.php ${DRUPAL_INSTALL_DIR}
+  # cp ${OPENSHIFT_REPO_DIR}.openshift/health_check.php ${DRUPAL_INSTALL_DIR}
 
 
   echo "Drupal installed to $DRUPAL_INSTALL_DIR"
