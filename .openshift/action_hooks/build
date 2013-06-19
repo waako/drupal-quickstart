@@ -4,6 +4,10 @@
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc. 
 
+mkdir -p "${OPENSHIFT_REPO_DIR}php"
+export > /tmp/export.txt
+exit 0
+
 set -e
 
 #
@@ -36,7 +40,6 @@ if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
 then
   mkdir -p ${OPENSHIFT_DATA_DIR}bin
   export DRUSH_SCRIPT=`find $OPENSHIFT_HOMEDIR -type f -name drush 2>/dev/null | head -1`
-  echo $DRUSH_SCRIPT; exit 1
   ln -s $DRUSH_SCRIPT ${OPENSHIFT_DATA_DIR}bin/drush
   mkdir -p ${OPENSHIFT_TMP_DIR}drupal
 
