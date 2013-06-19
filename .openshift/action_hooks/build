@@ -53,7 +53,7 @@ then
   echo "Download and install the latest stable version of Drupal"
   echo
 
-  if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
+  if ! $DRUSH_SCRIPT --debug dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
   then
     echo "ERROR: Unable download and install Drupal."
     exit 7
