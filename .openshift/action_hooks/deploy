@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/bash -x
 # This deploy hook gets executed after dependencies are resolved and the
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-set -e
+#set -e
 
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
