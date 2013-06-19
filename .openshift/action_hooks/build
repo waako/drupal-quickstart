@@ -1,14 +1,10 @@
-#!/bin/bash
+#!/bin/bash -x
 # This is a simple build script and will be executed on your CI system if 
 # available.  Otherwise it will execute while your application is stopped
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc. 
 
-mkdir -p "${OPENSHIFT_REPO_DIR}php"
-export > /tmp/export.txt
-exit 0
-
-set -e
+#set -e
 
 #
 # The PHP dir most be controlled by Drupal content
