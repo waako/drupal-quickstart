@@ -47,6 +47,8 @@ then
   echo "Download and install the latest stable version of Drupal"
   echo
 
+  echo "PHPRC: $PHPRC"; exit 1
+
   if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
   then
     echo "ERROR: Unable download and install Drupal."
