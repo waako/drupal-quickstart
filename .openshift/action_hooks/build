@@ -35,6 +35,7 @@ echo
 if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
 then
   mkdir -p ${OPENSHIFT_DATA_DIR}bin
+  # PHP cartridges might put drush in the right place.
   if [ ! `which drush` ]
   then
     export DRUSH_SCRIPT=`find $OPENSHIFT_HOMEDIR -type f -name drush 2>/dev/null | head -1`
@@ -52,8 +53,7 @@ then
   echo "Download and install the latest stable version of Drupal"
   echo
 
-  #if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
-  if ! git clone --depth 1 --branch 8.x http://git.drupal.org/project/drupal.git ${OPENSHIFT_DATA_DIR}/downloads/drupal
+  if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
   then
     echo "ERROR: Unable download and install Drupal."
     exit 7
