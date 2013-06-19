@@ -47,8 +47,6 @@ then
   echo "Download and install the latest stable version of Drupal"
   echo
 
-  echo "PHPRC: $PHPRC"; exit 1
-
   #if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
   if ! git clone --depth 1 --branch 8.x http://git.drupal.org/project/drupal.git
   then
