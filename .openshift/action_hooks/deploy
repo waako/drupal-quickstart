@@ -65,6 +65,12 @@ then
     ##exit 10
   #fi
 
+  # Installing 8 is too slow, so instead, make a settings file from default.settings.php.
+  if [ ! -f "$DRUPAL_SETTINGS" ]
+  then
+    cp ${DRUPAL_SITE_DIR}/default/{default.,}settings.php
+  fi
+
   #
   # Tweak settings.php to use the OpenShift environment variables instead of
   # the values passed to Drush.
