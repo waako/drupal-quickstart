@@ -56,6 +56,7 @@ then
   mkdir -p ${DRUPAL_PRIVATE_DIR}
 
   pushd ${OPENSHIFT_REPO_DIR}php
+
   echo
   echo "Creating a new Drupal site at ${DRUPAL_SITE_DIR}/default"
   echo
