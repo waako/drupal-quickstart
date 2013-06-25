@@ -8,7 +8,8 @@
 
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
-DRUPAL_SETTINGS=${DRUPAL_SITE_DIR}/default/settings.php
+DRUPAL_FILES_DIR=${DRUPAL_SITE_DIR}default/files
+DRUPAL_SETTINGS=${DRUPAL_SITE_DIR}default/settings.php
 if [ `which drush` ]
 then
   DRUSH_SCRIPT=`which drush`
@@ -69,6 +70,12 @@ then
   if [ ! -f "$DRUPAL_SETTINGS" ]
   then
     cp ${DRUPAL_SITE_DIR}/default/{default.,}settings.php
+  fi
+
+  # Similarly, make a files directory.
+  if [ ! -d "$DRUPAL_FILES_DIR" ]
+  then
+    mkdir -p ${DRUPAL_FILES_DIR}
   fi
 
   #
