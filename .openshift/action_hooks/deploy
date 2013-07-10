@@ -122,8 +122,8 @@ END
   echo
   echo "Drupal is now configured"
   echo
-  echo "Go to ${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
-  if [ -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
+  echo "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
+  if [ ! -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
     echo "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
   else
     echo "You will need to add a MySQL cartridge to your application to run Drupal."
