@@ -122,11 +122,13 @@ END
   echo
   echo "Drupal is now configured"
   echo
-  echo "===================================================="
-  echo "  Drupal-Admin login: admin"
-  echo "  Drupal-Admin password: openshift_changeme"
-  echo "  Don't forget to change your drupal admin password!"
-  echo "===================================================="
+  echo "Go to ${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
+  if [ -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
+    echo "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
+  else
+    echo "You will need to add a MySQL cartridge to your application to run Drupal."
+    exit 11
+  fi
 else
   echo "Drupal is already configured.  Delete settings.php to rerun setup"
 fi
