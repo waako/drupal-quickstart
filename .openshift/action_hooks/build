@@ -56,7 +56,7 @@ then
   export
   # Skip this, since d.o dev releases for 8.x seem to be corrupt a lot of the time.
   #if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
-  if ! wget -O ${OPENSHIFT_DATA_DIR}downloads/ http://ftp.drupal.org/files/projects/drupal-8.x-dev.tar.gz 
+  if ! wget -P ${OPENSHIFT_DATA_DIR}downloads http://ftp.drupal.org/files/projects/drupal-8.x-dev.tar.gz
   then
     echo "ERROR: Unable to download Drupal."
     exit 7
