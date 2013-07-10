@@ -120,10 +120,10 @@ END
 
   popd
   echo
-  client_message "Drupal 8 has been set up but not installed."
-  client_message "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
+  client_result "Drupal 8 has been set up but not installed."
+  client_result "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
   if [ ! -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
-    client_message "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
+    client_result "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
   else
     echo "You will need to add a MySQL cartridge to your application to run Drupal."
     exit 11
