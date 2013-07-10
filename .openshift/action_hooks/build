@@ -62,7 +62,7 @@ then
     exit 7
   fi
 
-  if ! tar xzf -C ${OPENSHIFT_DATA_DIR}/downloads ${OPENSHIFT_DATA_DIR}downloads/drupal-8.x-dev.tar.gz
+  if ! tar xzf --directory=${OPENSHIFT_DATA_DIR}/downloads ${OPENSHIFT_DATA_DIR}downloads/drupal-8.x-dev.tar.gz
   then
     echo "ERROR: Unable to extract Drupal."
     exit 12
