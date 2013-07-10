@@ -4,7 +4,9 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-#set -e
+set -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
@@ -120,6 +122,7 @@ END
 
   popd
   echo
+  client_result ""
   client_result "Drupal 8 has been set up but not installed."
   client_result "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
   if [ ! -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
