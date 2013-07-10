@@ -4,7 +4,11 @@
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc. 
 
-#set -e
+set -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+client_result "build"
 
 #
 # The PHP dir most be controlled by Drupal content
