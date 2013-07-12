@@ -35,14 +35,6 @@ echo
 if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
 then
   mkdir -p ${OPENSHIFT_DATA_DIR}bin
-  # PHP cartridges might put drush in the right place.
-  if [ ! `which drush` ]
-  then
-    export DRUSH_SCRIPT=`find $OPENSHIFT_HOMEDIR -type f -name drush 2>/dev/null | head -1`
-    ln -s $DRUSH_SCRIPT ${OPENSHIFT_DATA_DIR}bin/drush
-  else
-    export DRUSH_SCRIPT=`which drush`
-  fi
   mkdir -p ${OPENSHIFT_TMP_DIR}drupal
 
   # Add Drush to the .bash_profile, which you must manually source in the shell
@@ -55,7 +47,7 @@ then
 
   export
   # Skip this, since d.o dev releases for 8.x seem to be corrupt a lot of the time.
-  #if ! $DRUSH_SCRIPT dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
+  #if ! drush dl drupal --default-major=8 --dev --destination=${OPENSHIFT_DATA_DIR}downloads --yes
   if ! wget -P ${OPENSHIFT_DATA_DIR}downloads http://ftp.drupal.org/files/projects/drupal-8.x-dev.tar.gz
   then
     echo "ERROR: Unable to download Drupal."
