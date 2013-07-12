@@ -6,12 +6,6 @@
 
 set -e
 
-source $OPENSHIFT_CARTRIDGE_SDK_BASH
-
-client_result "build"
-client_message "build"
-client_error "build"
-
 #
 # The PHP dir most be controlled by Drupal content
 #

@@ -6,12 +6,6 @@
 
 set -e
 
-source $OPENSHIFT_CARTRIDGE_SDK_BASH
-
-client_result "deploy"
-client_message "build"
-client_error "build"
-
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
 DRUPAL_FILES_DIR=${DRUPAL_SITE_DIR}/default/files
@@ -126,11 +120,11 @@ END
 
   popd
   echo
-  client_result ""
-  client_result "Drupal 8 has been set up but not installed."
-  client_result "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
+  echo ""
+  echo "Drupal 8 has been set up but not installed."
+  echo "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
   if [ ! -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
-    client_result "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
+    echo "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
   fi
 else
   echo "Drupal is already configured.  Delete settings.php to rerun setup"
