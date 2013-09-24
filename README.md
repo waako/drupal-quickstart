@@ -7,7 +7,7 @@ just yet, but hope you will use it to test & give feedback to the Drupal Communi
 It defaults to using MySQL, so when creating the application you'll want to select 
 and install both MySQL and Cron (for running scheduled tasks). 
 
-    rhc app create drupal php-5 mysql cron
+    rhc app create drupal8 https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-php-fpm mysql cron https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-community-drush-master
 
 The first time you push changes to OpenShift, the build script
 will download the latest stable version of Drupal (currently 7.x) and
@@ -37,11 +37,7 @@ the [build](.openshift/action_hooks/build) and [deploy](.openshift/action_hooks/
 Using Drush
 -----------
 
-The Drush management tool for Drupal is automatically installed - you can add it to your path when you SSH in to the application by using the following command:
-
-    . ${OPENSHIFT_DATA_DIR}.bash_profile
-
-and then running
+The Drush management tool for Drupal is automatically installed. You can use it by running:
 
     cd ${OPENSHIFT_REPO_DIR}php
     drush --help
@@ -54,9 +50,9 @@ Running on OpenShift
 
 Create an account at http://openshift.redhat.com/
 
-Create a php-5.3 application with MySQL and Cron support.
+Create a PHP 5.4 application with MySQL and Cron support and the latest Drush.
 
-    rhc app create drupal php-5.3 mysql-5.1 cron --from-code=git://github.com/openshift/drupal-quickstart.git
+    rhc app create drupal8 https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-php-fpm mysql cron https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-community-drush-master --from-code=git://github.com/phase2/drupal-quickstart.git
 
 That's it, you can now checkout your application at:
     http://drupal-$yournamespace.rhcloud.com
