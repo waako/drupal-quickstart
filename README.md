@@ -10,7 +10,7 @@ and install both MySQL and Cron (for running scheduled tasks).
     rhc app create drupal8 https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-php-fpm mysql cron https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-community-drush-master
 
 The first time you push changes to OpenShift, the build script
-will download the latest stable version of Drupal (currently 7.x) and
+will download the latest alpha version of Drupal 8 and
 install it into the 'downloads' data directory.  It will then create and
 deploy a default profile for your application, using MySQL into your
 'sites' directory. Any new modules you add or files uploaded to the site
