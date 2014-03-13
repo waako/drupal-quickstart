@@ -87,7 +87,7 @@ directory containing Drupal
 ../data/sites - The data for your Drupal site, including settings.php,
 downloaded modules, and uploaded files  
 ../data/downloads - The most recent version of Drupal.  
-deplist.txt - list of pears to install  
+.openshift/pear.txt - list of pears to install  
 .openshift/action_hooks/build - Script that gets run every push, just prior to starting your app  
 
 
