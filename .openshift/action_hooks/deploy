@@ -9,7 +9,7 @@ set -e
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
 DRUPAL_SETTINGS=${DRUPAL_SITE_DIR}/default/settings.php
-DEFAULT_PASSWORD=openshift_changeme
+initial_password=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.initial_drupal_password)
 
 if [ ! -d "${DRUPAL_SITE_DIR}/default" ]
 then
@@ -52,7 +52,7 @@ then
   echo
   echo "Creating a new Drupal site at ${DRUPAL_SITE_DIR}/default"
   echo
-  if ! drush site-install standard --site-name=${OPENSHIFT_APP_NAME} --account-pass=openshift_changeme --db-url=mysql://$OPENSHIFT_MYSQL_DB_USERNAME:$OPENSHIFT_MYSQL_DB_PASSWORD@$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/$OPENSHIFT_APP_NAME --yes
+  if ! drush site-install standard --site-name=${OPENSHIFT_APP_NAME} --account-pass=$initial_password --db-url=mysql://$OPENSHIFT_MYSQL_DB_USERNAME:$OPENSHIFT_MYSQL_DB_PASSWORD@$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/$OPENSHIFT_APP_NAME --yes
   then
     echo "Unable to configure your Drupal installation"
     echo
@@ -106,11 +106,6 @@ END
   echo
   echo "Drupal is now configured"
   echo
-  echo "===================================================="
-  echo "  Drupal-Admin login: admin"
-  echo "  Drupal-Admin password: openshift_changeme"
-  echo "  Don't forget to change your drupal admin password!"
-  echo "===================================================="
 else
   echo "Drupal is already configured.  Delete settings.php to rerun setup"
 fi

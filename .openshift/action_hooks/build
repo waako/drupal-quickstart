@@ -6,6 +6,8 @@
 
 set -e
 
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
 #
 # The PHP dir most be controlled by Drupal content
 #
@@ -88,4 +90,23 @@ if [ ! -d "${OPENSHIFT_REPO_DIR}php" ]
 then  
   echo "ERROR: Unable to link the PHP directory, as the current Drupal instance is not a valid directory."
   exit 8
+fi
+
+# Set the initial password for Drupal
+#
+password_file=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.initial_drupal_password
+
+if [ ! -f $password_file ]; then
+
+  admin_pwd=$(openssl rand -base64 8)
+
+  echo $admin_pwd > $password_file
+
+  client_result ""
+  client_result "Drupal installed successfully."
+  client_result ""
+  client_result "      Drupal admin login: admin"
+  client_result "   Drupal admin password: $admin_pwd"
+  client_result ""
+  client_result "Don't forget to change your drupal admin password!"
 fi
