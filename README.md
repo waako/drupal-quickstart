@@ -68,9 +68,6 @@ That's it, you can now checkout your application at:
 The default user is 'admin' and the password should be printed out to console
 after deployment. Please change the default password after first login.
 
-If the action took too long and it didn't show the password then ssh into the gear
-and run: `cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.initial_drupal_password`
-
 
 Updates
 -------

@@ -6,11 +6,13 @@
 
 set -e
 
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
 DRUPAL_SETTINGS=${DRUPAL_SITE_DIR}/default/settings.php
-initial_password=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.initial_drupal_password)
 
+# NOTE: possibly this won't work when it's a scaled build
 if [ ! -d "${DRUPAL_SITE_DIR}/default" ]
 then
   echo "No sites directory has been created, Drupal cannot be deployed"
@@ -23,6 +25,9 @@ fi
 #
 if [ ! -f "${DRUPAL_SITE_DIR}/default/settings.php" ]
 then
+
+  # Set the initial password
+  admin_pwd=$(openssl rand -base64 8)
 
   #
   # Automatic installation only works with mysql.
@@ -52,7 +57,7 @@ then
   echo
   echo "Creating a new Drupal site at ${DRUPAL_SITE_DIR}/default"
   echo
-  if ! drush site-install standard --site-name=${OPENSHIFT_APP_NAME} --account-pass=$initial_password --db-url=mysql://$OPENSHIFT_MYSQL_DB_USERNAME:$OPENSHIFT_MYSQL_DB_PASSWORD@$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/$OPENSHIFT_APP_NAME --yes
+  if ! drush site-install standard --site-name=${OPENSHIFT_APP_NAME} --account-pass=$admin_pwd --db-url=mysql://$OPENSHIFT_MYSQL_DB_USERNAME:$OPENSHIFT_MYSQL_DB_PASSWORD@$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/$OPENSHIFT_APP_NAME --yes
   then
     echo "Unable to configure your Drupal installation"
     echo
@@ -106,6 +111,15 @@ END
   echo
   echo "Drupal is now configured"
   echo
+
+  client_result ""
+  client_result "Drupal installed successfully."
+  client_result ""
+  client_result "      Drupal admin login: admin"
+  client_result "   Drupal admin password: $admin_pwd"
+  client_result ""
+  client_result "Don't forget to change your drupal admin password!"
+
 else
   echo "Drupal is already configured.  Delete settings.php to rerun setup"
 fi
