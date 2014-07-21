@@ -27,7 +27,7 @@ if [ ! -f "${DRUPAL_SITE_DIR}/default/settings.php" ]
 then
 
   # Set the initial password
-  admin_pwd=$(openssl rand -base64 8)
+  admin_pwd=$(generate_password)
 
   #
   # Automatic installation only works with mysql.
