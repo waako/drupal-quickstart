@@ -65,12 +65,9 @@ Create a php-5.3 application with MySQL and Cron support.
 That's it, you can now checkout your application at:
     http://drupal-$yournamespace.rhcloud.com
 
-Default Credentials
--------------------
-<table>
-<tr><td>Default Admin Username</td><td>admin</td></tr>
-<tr><td>Default Admin Password</td><td>openshift_changeme</td></tr>
-</table>
+The default user is 'admin' and the password should be printed out to console
+after deployment. Please change the default password after first login.
+
 
 Updates
 -------
