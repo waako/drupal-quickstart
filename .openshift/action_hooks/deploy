@@ -122,5 +122,14 @@ END
 
 else
   echo "Drupal is already configured.  Delete settings.php to rerun setup"
+
+  if [ -f "${OPENSHIFT_DATA_DIR}/autoupdate" ]
+  then
+      # If the autoupdate file exists, we should update the drupal core
+      # on git pushes
+      echo "Automatically upgrading drupal core"
+      drush ups
+      drush up drupal --yes --backup-dir $OPENSHIFT_DATA_DIR/drush-backups
+  fi
 fi
 echo
