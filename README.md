@@ -6,7 +6,7 @@ installation on OpenShift. It defaults to using MySQL, so when creating
 the application you'll want to select and install both MySQL and Cron
 (for running scheduled tasks). 
 
-    rhc app create drupal php-5.3 mysql-5.1 cron
+    rhc app create drupal php-5.4 mysql-5.5 cron phpmyadmin
 
 The first time you push changes to OpenShift, the build script
 will download the latest stable version of Drupal (currently 7.x) and
@@ -58,9 +58,9 @@ Running on OpenShift
 
 Create an account at https://www.openshift.com
 
-Create a php-5.3 application with MySQL and Cron support.
+Create a php-5.4 application with MySQL and Cron support.
 
-    rhc app create drupal php-5.3 mysql-5.1 cron --from-code=git://github.com/openshift/drupal-quickstart.git
+    rhc app create drupal php-5.4 mysql-5.5 cron --from-code=git://github.com/openshift/drupal-quickstart.git
 
 That's it, you can now checkout your application at:
     http://drupal-$yournamespace.rhcloud.com
