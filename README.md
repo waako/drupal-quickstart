@@ -44,13 +44,13 @@ and you can simply use it while ssh'd into your gear.
 
 Drush has many helpful commands for managing your installation, such as:
 
-    drush st			# Show status of Drush and the Drupal site
+    drush st						# Show status of Drush and the Drupal site
     drush dl <project>	# Download module/theme
     drush en <project>	# Enable module/theme
     drush dis <project>	# Disable module/theme
-    drush cc all		# Clear all cache
+    drush cc all				# Clear all cache
     drush core-cron     # Run cron
-    drush updb			# Apply database updates
+    drush updb					# Apply database updates
 
 
 Running on OpenShift
@@ -60,7 +60,7 @@ Create an account at https://www.openshift.com
 
 Create a php-5.4 application with MySQL and Cron support.
 
-    rhc app create drupal php-5.4 mysql-5.5 cron --from-code=git://github.com/openshift/drupal-quickstart.git
+    rhc app create drupal php-5.4 mysql-5.5 cron --from-code=git://github.com/trifonnt/drupal-quickstart.git
 
 That's it, you can now checkout your application at:
     http://drupal-$yournamespace.rhcloud.com
@@ -78,11 +78,9 @@ modules into your data directory.
 Repo layout
 -----------
 
-php/ - At deploy time, the build script will symlink this directory to a
-directory containing Drupal  
+php/ - At deploy time, the build script will symlink this directory to a directory containing Drupal  
 ../data - For persistent data  
-../data/sites - The data for your Drupal site, including settings.php,
-downloaded modules, and uploaded files  
+../data/sites - The data for your Drupal site, including settings.php, downloaded modules, and uploaded files  
 ../data/downloads - The most recent version of Drupal.  
 .openshift/pear.txt - list of pears to install  
 .openshift/action_hooks/build - Script that gets run every push, just prior to starting your app  
