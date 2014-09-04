@@ -75,6 +75,11 @@ Updates
 You can use Drupal's module management UI to download new versions of
 modules into your data directory.
 
+You can update the drupal core by creating the file
+${OPENSHIFT_DATA_DIR}/autoupdate. This will automatically trigger an
+update on any subsequent commit. Remove this file to avoid performing an
+update on commits.
+
 Repo layout
 -----------
 
