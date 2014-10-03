@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # This deploy hook gets executed after dependencies are resolved and the
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
@@ -6,13 +6,12 @@
 
 set -e
 
-source $OPENSHIFT_CARTRIDGE_SDK_BASH
-
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
 DRUPAL_PRIVATE_DIR=${OPENSHIFT_DATA_DIR}private
+DRUPAL_FILES_DIR=${DRUPAL_SITE_DIR}/default/files
 DRUPAL_SETTINGS=${DRUPAL_SITE_DIR}/default/settings.php
+DEFAULT_PASSWORD=openshift_changeme
 
-# NOTE: possibly this won't work when it's a scaled build
 if [ ! -d "${DRUPAL_SITE_DIR}/default" ]
 then
   echo "No sites directory has been created, Drupal cannot be deployed"
@@ -25,9 +24,6 @@ fi
 #
 if [ ! -f "${DRUPAL_SITE_DIR}/default/settings.php" ]
 then
-
-  # Set the initial password
-  admin_pwd=$(generate_password)
 
   #
   # Automatic installation only works with mysql.
@@ -50,18 +46,15 @@ then
       exit 6
   fi
 
-  mkdir -p ${DRUPAL_SITE_DIR}/default
+  mkdir -p ${DRUPAL_FILES_DIR}
   mkdir -p ${DRUPAL_PRIVATE_DIR}
 
   pushd ${OPENSHIFT_REPO_DIR}php
-  echo
-  echo "Creating a new Drupal site at ${DRUPAL_SITE_DIR}/default"
-  echo
-  if ! drush site-install standard --site-name=${OPENSHIFT_APP_NAME} --account-pass=$admin_pwd --db-url=mysql://$OPENSHIFT_MYSQL_DB_USERNAME:$OPENSHIFT_MYSQL_DB_PASSWORD@$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/$OPENSHIFT_APP_NAME --yes
+
+  # Installing 8 is too slow, so instead, make a settings file from default.settings.php.
+  if [ ! -f "$DRUPAL_SETTINGS" ]
   then
-    echo "Unable to configure your Drupal installation"
-    echo
-    exit 10
+    cp ${DRUPAL_SITE_DIR}/default/{default.,}settings.php
   fi
 
   #
@@ -107,29 +100,27 @@ END
   echo "\$conf['file_private_path'] = \$src['OPENSHIFT_DATA_DIR'] . 'private/';" >> ${DRUPAL_SETTINGS}
   echo "\$conf['file_temporary_path'] = \$src['OPENSHIFT_TMP_DIR'] . 'drupal/';" >> ${DRUPAL_SETTINGS}
 
+  chmod u-w ${DRUPAL_SETTINGS} ${DRUPAL_SITE_DIR}/default
+
+  echo
+  echo "Creating a new Drupal site at ${DRUPAL_SITE_DIR}/default"
+  echo
+  drush site-install standard --site-name=${OPENSHIFT_APP_NAME} --account-pass=openshift_changeme --db-url=mysql://$OPENSHIFT_MYSQL_DB_USERNAME:$OPENSHIFT_MYSQL_DB_PASSWORD@$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/$OPENSHIFT_APP_NAME --yes &
+  #then
+  #  echo "Unable to configure your Drupal installation"
+  #  echo
+  #  exit 10
+  #fi
+
   popd
   echo
-  echo "Drupal is now configured"
-  echo
-
-  client_result ""
-  client_result "Drupal installed successfully."
-  client_result ""
-  client_result "      Drupal admin login: admin"
-  client_result "   Drupal admin password: $admin_pwd"
-  client_result ""
-  client_result "Don't forget to change your drupal admin password!"
-
+  echo ""
+  echo "Drupal 8 has been set up but not installed."
+  echo "Go to http://${OPENSHIFT_APP_DNS}/core/install.php to install Drupal."
+  if [ ! -z $OPENSHIFT_MYSQL_DB_PASSWORD ]; then
+    echo "You will need to enter ${OPENSHIFT_MYSQL_DB_PASSWORD} as the MySQL password for the installer."
+  fi
 else
   echo "Drupal is already configured.  Delete settings.php to rerun setup"
-
-  if [ -f "${OPENSHIFT_DATA_DIR}/autoupdate" ]
-  then
-      # If the autoupdate file exists, we should update the drupal core
-      # on git pushes
-      echo "Automatically upgrading drupal core"
-      drush ups
-      drush up drupal --yes --backup-dir $OPENSHIFT_DATA_DIR/drush-backups
-  fi
 fi
 echo
