@@ -1,15 +1,16 @@
-Drupal on OpenShift
+Drupal 8 beta on OpenShift
 ===================
 
 This Git repository helps you get up and running quickly w/ a Drupal
-installation on OpenShift. It defaults to using MySQL, so when creating
-the application you'll want to select and install both MySQL and Cron
-(for running scheduled tasks). 
+8 beta installation on OpenShift. We do NOT recommend using this in production 
+just yet, but hope you will use it to test & give feedback to the Drupal Community.
+It defaults to using MySQL, so when creating the application you'll want to select 
+and install both MySQL and Cron (for running scheduled tasks). 
 
-    rhc app create drupal php-5.4 mysql-5.5 cron phpmyadmin
+    rhc app create d8 php-5.4 mysql-5.5 cron https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-community-drush-master
 
 The first time you push changes to OpenShift, the build script
-will download the latest stable version of Drupal (currently 7.x) and
+will download the latest alpha version of Drupal 8 and
 install it into the 'downloads' data directory.  It will then create and
 deploy a default profile for your application, using MySQL into your
 'sites' directory. Any new modules you add or files uploaded to the site
@@ -52,22 +53,24 @@ Drush has many helpful commands for managing your installation, such as:
     drush core-cron     # Run cron
     drush updb					# Apply database updates
 
-
 Running on OpenShift
 --------------------
 
-Create an account at https://www.openshift.com
+Create an account at http://openshift.redhat.com/
 
-Create a php-5.4 application with MySQL and Cron support.
+Create a PHP 5.4 application with MySQL and Cron support and the latest Drush.
 
-    rhc app create drupal php-5.4 mysql-5.5 cron --from-code=git://github.com/trifonnt/drupal-quickstart.git
+    rhc app create drupal8 php-5.4 mysql-5.5 cron https://cartreflect-claytondev.rhcloud.com/reflect?github=phase2/openshift-community-drush-master --from-code=git://github.com/phase2/drupal-quickstart.git
 
 That's it, you can now checkout your application at:
-    http://drupal-$yournamespace.rhcloud.com
+    http://drupal8-$yournamespace.rhcloud.com
 
-The default user is 'admin' and the password should be printed out to console
-after deployment. Please change the default password after first login.
-
+Default Credentials
+-------------------
+<table>
+<tr><td>Default Admin Username</td><td>admin</td></tr>
+<tr><td>Default Admin Password</td><td>openshift_changeme</td></tr>
+</table>
 
 Updates
 -------
@@ -75,19 +78,16 @@ Updates
 You can use Drupal's module management UI to download new versions of
 modules into your data directory.
 
-You can update the drupal core by creating the file
-${OPENSHIFT_DATA_DIR}/autoupdate. This will automatically trigger an
-update on any subsequent commit. Remove this file to avoid performing an
-update on commits.
-
 Repo layout
 -----------
 
-php/ - At deploy time, the build script will symlink this directory to a directory containing Drupal  
+php/ - At deploy time, the build script will symlink this directory to a
+directory containing Drupal  
 ../data - For persistent data  
-../data/sites - The data for your Drupal site, including settings.php, downloaded modules, and uploaded files  
+../data/sites - The data for your Drupal site, including settings.php,
+downloaded modules, and uploaded files  
 ../data/downloads - The most recent version of Drupal.  
-.openshift/pear.txt - list of pears to install  
+deplist.txt - list of pears to install  
 .openshift/action_hooks/build - Script that gets run every push, just prior to starting your app  
 
 
